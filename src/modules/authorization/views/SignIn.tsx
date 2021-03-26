@@ -73,10 +73,6 @@ export default (props: SignInProps): ReactElement => {
 						id="password"
 						autoComplete="current-password"
 					/>
-					<FormControlLabel
-						control={<Checkbox value="remember" color="primary" />}
-						label="Remember me"
-					/>
 					<Button
 						type="submit"
 						fullWidth
@@ -87,13 +83,6 @@ export default (props: SignInProps): ReactElement => {
 					>
 						Sign In
 					</Button>
-					<Grid container>
-						<Grid item xs>
-							<Link href="password-forgotten" variant="body2">
-								Forgot password?
-							</Link>
-						</Grid>
-					</Grid>
 				</form>
 			</div>
 		</Container>
