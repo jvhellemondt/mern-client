@@ -32,8 +32,13 @@ const useStyles = makeStyles((theme) => ({
 	}
 }))
 
-export default (): ReactElement => {
+interface SignInProps {
+	login: () => void
+}
+
+export default (props: SignInProps): ReactElement => {
 	const classes = useStyles()
+	const { login } = props
 
 	return (
 		<Container component="main" maxWidth="xs">
@@ -77,6 +82,7 @@ export default (): ReactElement => {
 						fullWidth
 						variant="contained"
 						color="primary"
+						onClick={login}
 						className={classes.submit}
 					>
 						Sign In

@@ -14,14 +14,15 @@ interface RouteOptions {
 }
 
 export default (): ReactElement => {
-	const [isAuthenticated] = useState(false)
+	const [isAuthenticated, isAuthenticatedSet] = useState(false)
 	const location = useLocation()
-	// const login = (): void => {
-	// 	isAuthenticatedSet(true)
-	// }
-	// const logout = (): void => {
-	// 	isAuthenticatedSet(false)
-	// }
+
+	const login = (): void => {
+		isAuthenticatedSet(true)
+	}
+	const logout = (): void => {
+		isAuthenticatedSet(false)
+	}
 
 	const authenticationGuard = (): string => {
 		if (!isAuthenticated) return '/login'
@@ -33,8 +34,18 @@ export default (): ReactElement => {
 	}
 
 	const routes = [
-		{ path: '/', exact: true, component: <Dashboard />, beforeEnter: authenticationGuard },
-		{ path: '/login', exact: true, component: <SignIn />, beforeEnter: guestGuard },
+		{
+			path: '/',
+			exact: true,
+			component: <Dashboard logout={logout} />,
+			beforeEnter: authenticationGuard
+		},
+		{
+			path: '/login',
+			exact: true,
+			component: <SignIn login={login} />,
+			beforeEnter: guestGuard
+		},
 		{ path: '*', component: <PageNotFound /> }
 	]
 
@@ -48,6 +59,7 @@ export default (): ReactElement => {
 					<Link to="/login">Sign in</Link>
 				</li>
 			</ul>
+			<span style={{ margin: '30px' }}>{`${isAuthenticated}`}</span>
 
 			<Switch>
 				{routes.map((route: RouteOptions) => {
